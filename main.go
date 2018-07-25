@@ -21,13 +21,15 @@ import (
 	// "github.com/dfang/yuanxin_api"
 )
 
+var redisConnString = fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), os.Getenv("REDIS_PORT"))
+
 // Make a redis pool
 var redisPool = &redis.Pool{
 	MaxActive: 5,
 	MaxIdle:   5,
 	Wait:      true,
 	Dial: func() (redis.Conn, error) {
-		return redis.Dial("tcp", "redis:6379")
+		return redis.Dial("tcp", redisConnString)
 	},
 }
 var conn = &sql.DB{}
